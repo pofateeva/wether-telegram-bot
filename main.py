@@ -21,11 +21,23 @@ def get_city_weather(message):
 
         message_text = f"🏙 {city}:\n🌡Температура: {weather_data['temp']}°C\nОщущается как: {weather_data['feels_like']}°C\n\nСостояние: {weather_data['description'].capitalize()}\n💨 Ветер: {weather_data['wind_speed']} м/с ({weather_data['wind_deg']}°)"
 
-        message_text = message_text + f'\n\nСовет: ' + weather.get_recomendation(weather_data['temp'], weather_data['description'])
-        bot.send_message(message.chat.id, message_text)
+        bot.send_message(message.chat.id, message_text, reply_markup = keyboards.create_advice_keyboard(weather_data['temp'], weather_data['description']))
     else:
         bot.send_message(message.chat.id, f"Упс, похоже такого города нет в списке!")
 
+# Обработка нажатия на кнопку "Рекомендации по одежде"
+@bot.callback_query_handler(func=lambda call: True)
+def callback_weather_advice(call):
+    weather_data = call.data.split('_')
+
+    temp = float(weather_data[1])
+    description = weather_data[2]
+
+    advice = weather.get_recomendation(temp, description)
+
+    bot.answer_callback_query(call.id, advice)
+    bot.edit_message_text(text=f'💡 Совет:\n{advice}', chat_id=call.message.chat.id, message_id=call.message.message_id)
+
 if __name__ == "__main__":
     print("Бот запущен!")
-    bot.polling(none_stop=False)
+    bot.polling(none_stop=True)
