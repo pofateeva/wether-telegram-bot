@@ -13,5 +13,36 @@ def get_weather(city):
 
     # Извлечение данных о температуре и погодных условиях
     temp = data['main']['temp']
+    feels_like = data['main']['feels_like']
+    wind_speed = data['wind']['speed']
+    wind_deg = data['wind']['deg']
     weather_description = data['weather'][0]['description']
-    return temp, weather_description
+
+    weather_data = {
+        "temp": temp,
+        "feels_like": feels_like,
+        "wind_speed": wind_speed,
+        "wind_deg": wind_deg,
+        "description": weather_description
+    }
+
+    return weather_data
+
+def get_recomendation(temp, description):
+    if temp < -10:
+        advice = "Морозно! Одевай очень теплую зимнюю куртку и валенки."
+    elif -10 <= temp < 0:
+        advice = 'Очень холодно! Наденьте теплую зимнюю одежду.'
+    elif 0 <= temp < 10:
+        advice = 'Холодно. Одевайтесь в теплую куртку и шарф.'
+    elif 10 <= temp < 20:
+        advice = 'Прохладно. Легкая куртка или свитер будет в самый раз.'
+    elif 20 <= temp < 30:
+        advice = 'Тепло. Легкая одежда, можно носить футболки.'
+    elif temo >= 30:
+        advice = 'Жарко. Обязательно носите летнюю одежду, шорты и футболки.'
+
+    if 'дожд' in description.lower():
+        advice += f"\n\nТакже не забудьте взять с собой зонтик или дождевик"
+
+    return advice
