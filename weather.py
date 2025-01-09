@@ -15,5 +15,3 @@ def get_weather(city):
     temp = data['main']['temp']
     weather_description = data['weather'][0]['description']
     return temp, weather_description
-
-print(get_weather('Москва'))

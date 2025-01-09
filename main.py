@@ -1,5 +1,6 @@
 import telebot
 import keyboards
+import weather
 from config import TELEGRAM_API_TOKEN
 
 bot = telebot.TeleBot(TELEGRAM_API_TOKEN)
@@ -12,7 +13,15 @@ def start(message):
 def get_city_weather(message):
     if message.text in keyboards.CITIES:
         city = message.text.strip()
-        bot.send_message(message.chat.id, f"Вы выбрали город: {city}")
+        weather_data = weather.get_weather(city)
+
+        if weather_data is None:
+            bot.send_message(message.chat.id, "Не удалось получить погоду из города. Попробуй еще раз!")
+            return
+
+        temp, description = weather_data
+        message_text = f"Погода в {city}:\nТемпература: {temp}°C\nСостояние: {description.capitalize()}"
+        bot.send_message(message.chat.id, message_text)
     else:
         bot.send_message(message.chat.id, f"Упс, похоже такого города нет в списке!")
 
