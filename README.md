@@ -2,6 +2,7 @@
 <h3 align="center">Бот для просмотра погоды в 5 городах и получения рекомендаций по одежде!</h3>
 
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=О+проекте)](https://git.io/typing-svg)
+
 Проект написан на языке программирования: ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 С использованием таких библиотек как:
@@ -45,4 +46,5 @@ python main.py
 ```
 
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=Проект+был+сделан)](https://git.io/typing-svg)
+
 Климовцовой Олесей и Фатеевой Полиной
