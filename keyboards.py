@@ -6,3 +6,4 @@ city_keyboard = types.ReplyKeyboardMarkup(row_width=3)
 
 city_buttons = [types.KeyboardButton(city) for city in CITIES]
 city_keyboard.add(*city_buttons)
+

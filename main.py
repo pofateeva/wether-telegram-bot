@@ -19,8 +19,9 @@ def get_city_weather(message):
             bot.send_message(message.chat.id, "Не удалось получить погоду из города. Попробуй еще раз!")
             return
 
-        temp, description = weather_data
-        message_text = f"Погода в {city}:\nТемпература: {temp}°C\nСостояние: {description.capitalize()}"
+        message_text = f"🏙 {city}:\n🌡Температура: {weather_data['temp']}°C\nОщущается как: {weather_data['feels_like']}°C\n\nСостояние: {weather_data['description'].capitalize()}\n💨 Ветер: {weather_data['wind_speed']} м/с ({weather_data['wind_deg']}°)"
+
+        message_text = message_text + f'\n\nСовет: ' + weather.get_recomendation(weather_data['temp'], weather_data['description'])
         bot.send_message(message.chat.id, message_text)
     else:
         bot.send_message(message.chat.id, f"Упс, похоже такого города нет в списке!")
